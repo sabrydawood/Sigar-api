@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const postControllers = require("../controllers/postControllers");
 const { verifyToken, optionallyVerifyToken } = require("../middleware/auth");
+const multer = require("multer");
+const upload = multer();
 
 router.get("/", optionallyVerifyToken, postControllers.getPosts);
 router.post("/", verifyToken, postControllers.createPost);
@@ -17,5 +19,7 @@ router.get(
   optionallyVerifyToken,
   postControllers.getUserLikedPosts
 );
+router.post('/upload', optionallyVerifyToken,upload.single("file"), postControllers.uploadImage);
+
 
 module.exports = router;

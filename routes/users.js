@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const userControllers = require("../controllers/userControllers");
+const uploadController = require("../controllers/uploadControllers")
 const { check } = require("express-validator");
 const { verifyToken } = require("../middleware/auth");
+const multer = require("multer");
+const upload = multer();
 
 router.post("/register", userControllers.register);
 router.post("/login", userControllers.login);
@@ -17,4 +20,7 @@ router.delete("/unfollow/:id", verifyToken, userControllers.unfollow);
 router.get("/followers/:id", userControllers.getFollowers);
 router.get("/following/:id", userControllers.getFollowing);
 
+router.post("/upload", upload.single("file"), uploadController.uploadProfil);
+
 module.exports = router;
+ 

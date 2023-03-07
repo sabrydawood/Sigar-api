@@ -6,9 +6,69 @@ const PostLike = require("../models/PostLike");
 const paginate = require("../util/paginate");
 const cooldown = new Set();
 
+const fs = require("fs");
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
+const { uploadErrors } = require("../util/errors");
+
+
+const uploadImage =  async (req, res) =>{
+  try {
+let fileName;
+  if (req.file !== null) {
+    try {
+      if (
+        req.file.detectedMimeType != "image/jpg" &&
+        req.file.detectedMimeType != "image/png" &&
+        req.file.detectedMimeType != "image/jpeg"
+      )
+        throw Error("invalid file");
+
+      if (req.file.size > 800000) throw Error("max size");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(201).json({ errors });
+    }
+    fileName = req.body.userId + Date.now() + ".jpg";
+
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(`${__dirname}/../uploads/posts/${fileName}`)
+    );
+	}
+		
+} catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(201).json({ errors });
+	}
+}
+
 const createPost = async (req, res) => {
   try {
+let fileName;
     const { title, content, userId } = req.body;
+  if (req.file !== null) {
+    try {
+      if (
+        req.file.detectedMimeType != "image/jpg" &&
+        req.file.detectedMimeType != "image/png" &&
+        req.file.detectedMimeType != "image/jpeg"
+      )
+        throw Error("invalid file");
+
+      if (req.file.size > 800000) throw Error("max size");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(201).json({ errors });
+    }
+    fileName = req.body.userId + Date.now() + ".jpg";
+
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(`${__dirname}/../uploads/posts/${fileName}`)
+    );
+	}
+		
 
     if (!(title && content)) {
       throw new Error("All input required");
@@ -274,4 +334,5 @@ module.exports = {
   likePost,
   unlikePost,
   getUserLikedPosts,
+	uploadImage
 };
