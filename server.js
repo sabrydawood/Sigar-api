@@ -31,7 +31,7 @@ mongoose.connect(
 		keepAlive: true
 	},
 	() => {
-		console.log("MongoDB connected");
+		console.log("MongoDB connected to " + mongoose.connection.name);
 	}
 );
 
