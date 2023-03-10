@@ -27,12 +27,21 @@ const socketServer = (socket) => {
       socket
         .to(recipient.socketId)
         .emit("receive-message", userId, username, content);
+			
+			socket.emit("online", userId);
+  console.log(userId, "Is Online!", socket.id);
+
     }
   });
 
   socket.on("disconnect", () => {
     users = users.filter((user) => user.userId != userId);
+
+		
   });
+	socket.emit("offline", userId);
+	console.log(userId, "Is Offline!", socket.id);
+
 };
 
 module.exports = { socketServer, authSocket };
