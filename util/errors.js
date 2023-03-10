@@ -1,5 +1,5 @@
 
-async function uploadErrors (err) {
+const uploadErrors = async (err) => {
   let errors = { format: '', maxSize: ""};
 
   if (err.message.includes('invalid file'))

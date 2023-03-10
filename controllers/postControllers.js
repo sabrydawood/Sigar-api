@@ -5,12 +5,12 @@ const Comment = require("../models/Comment");
 const PostLike = require("../models/PostLike");
 const paginate = require("../util/paginate");
 const cooldown = new Set();
-
+/*
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const { uploadErrors } = require("../util/errors");
-
+*/
 /*
 const uploadImage =  async (req, res) =>{
   try {
@@ -45,7 +45,7 @@ let fileName;
 */
 const createPost = async (req, res) => {
   try {
-let fileName;
+//let fileName;
     const { title, content, userId } = req.body;
  /* if (req.file !== null) {
     try {
