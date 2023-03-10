@@ -16,7 +16,8 @@ const io = require("socket.io")(httpServer, {
 	cors: {
 		origin: [
 			"http://localhost:3000",
-			"https://sigar.vercel.app"
+			"https://sigar.vercel.app",
+			"https://sigar-test.onrender.com/"
 		],
 	},
 });
