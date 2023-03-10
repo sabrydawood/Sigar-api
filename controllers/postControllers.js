@@ -11,7 +11,7 @@ const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const { uploadErrors } = require("../util/errors");
 
-
+/*
 const uploadImage =  async (req, res) =>{
   try {
 let fileName;
@@ -42,12 +42,12 @@ let fileName;
       return res.status(201).json({ errors });
 	}
 }
-
+*/
 const createPost = async (req, res) => {
   try {
 let fileName;
     const { title, content, userId } = req.body;
-  if (req.file !== null) {
+ /* if (req.file !== null) {
     try {
       if (
         req.file.detectedMimeType != "image/jpg" &&
@@ -67,7 +67,7 @@ let fileName;
       req.file.stream,
       fs.createWriteStream(`${__dirname}/../uploads/posts/${fileName}`)
     );
-	}
+	}*/
 		
 
     if (!(title && content)) {
