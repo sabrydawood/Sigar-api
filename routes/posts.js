@@ -19,7 +19,7 @@ router.get(
   optionallyVerifyToken,
   postControllers.getUserLikedPosts
 );
-router.post('/upload', optionallyVerifyToken,upload.single("file"), postControllers.uploadImage);
+//router.post('/upload', optionallyVerifyToken,upload.single("file"), postControllers.uploadImage);
 
 
 module.exports = router;

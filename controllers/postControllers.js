@@ -334,5 +334,5 @@ module.exports = {
   likePost,
   unlikePost,
   getUserLikedPosts,
-	uploadImage
+	//uploadImage
 };
