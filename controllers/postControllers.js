@@ -45,41 +45,15 @@ let fileName;
 */
 const createPost = async (req, res) => {
 	try {
-		//let fileName;
 		const { title, content, userId } = req.body;
-		/* if (req.file !== null) {
-			 try {
-				 if (
-					 req.file.detectedMimeType != "image/jpg" &&
-					 req.file.detectedMimeType != "image/png" &&
-					 req.file.detectedMimeType != "image/jpeg"
-				 )
-					 throw Error("invalid file");
-	 
-				 if (req.file.size > 800000) throw Error("max size");
-			 } catch (err) {
-				 const errors = uploadErrors(err);
-				 return res.status(201).json({ errors });
-			 }
-			 fileName = req.body.userId + Date.now() + ".jpg";
-	 
-			 await pipeline(
-				 req.file.stream,
-				 fs.createWriteStream(`${__dirname}/../uploads/posts/${fileName}`)
-			 );
-		 }*/
-
-
 		if (!(title && content)) {
 			throw new Error("All input required");
 		}
-
 		if (cooldown.has(userId)) {
 			throw new Error(
 				"You are posting too frequently. Please try again shortly."
 			);
 		}
-
 		cooldown.add(userId);
 		setTimeout(() => {
 			cooldown.delete(userId);
@@ -90,7 +64,6 @@ const createPost = async (req, res) => {
 			content,
 			poster: userId,
 		});
-
 		res.json(post);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
