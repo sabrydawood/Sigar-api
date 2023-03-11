@@ -90,7 +90,7 @@ const createPost = async (req, res) => {
 			content,
 			poster: userId,
 		});
-
+               res.setHeader('charset', 'UTF-8')
 		res.json(post);
 	} catch (err) {
 		return res.status(400).json({ error: err.message });
