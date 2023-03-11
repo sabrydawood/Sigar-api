@@ -15,11 +15,11 @@ app.use(function(req, res, next) {
 	
 });
 // check routes for 404 page
-  app.use((_req, _res, next) => {
+ /* app.use((_req, _res, next) => {
     const error = new Error('Endpoint could not find!');
     error.status = 404;
     next(error);
-  });
+  });*/
 	
 }
 module.exports =  setHeaders;
