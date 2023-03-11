@@ -42,7 +42,7 @@ httpServer.listen(process.env.PORT || 4000, () => {
 
 app.use(express.json());
 app.use(cors());
-setHeaders(app);
+//setHeaders(app);
 app.use("/api/posts", posts);
 app.use("/api/users", users);
 app.use("/api/comments", comments);
