@@ -9,14 +9,15 @@ const users = require("./routes/users");
 const comments = require("./routes/comments");
 const messages = require("./routes/messages");
 const all_routes = require('express-list-endpoints');
-
+ const setHeaders = require("./middleware/headers")
 
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
 	cors: {
 		origin: [
 			"http://localhost:3000",
-			"https://sigar.vercel.app"
+			"https://sigar.vercel.app",
+			"https://sigar-test.onrender.com/"
 		],
 	},
 });
@@ -41,6 +42,7 @@ httpServer.listen(process.env.PORT || 4000, () => {
 
 app.use(express.json());
 app.use(cors());
+setHeaders(app);
 app.use("/api/posts", posts);
 app.use("/api/users", users);
 app.use("/api/comments", comments);
